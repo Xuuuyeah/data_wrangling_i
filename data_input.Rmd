@@ -21,14 +21,70 @@ litters_df = janitor::clean_names(litters_df) #这里可以不用load janitor pa
 
 ## Look at the dataset
 ```{r}
-litteres_df
+litters_df
 
 head(litters_df)
-taill(litters_df)
+tail(litters_df)
 ```
 
 ```{r eval = FALSE} 
 # eval = FALSE create a new window to present the dataset. Always using this command when viewing dataset
 view(litters_df)
+```
+
+Use relative paths.
+
+```{r}
+pups_df = read.csv("data/FAS_pups.csv")
+
+pups_df = janitor::clean_names(pups_df)
+
+pups_df
+```
+
+Use absolute paths.
+
+```{r eval = FALSE}
+pups_df = read_csv("/Users/yiran/Library/Mobile Documents/com~apple~CloudDocs/Desktop/徐逸然yyds/学习/MS/Coursework/2023-2024 Fall/BISTP8105_Data Science I/Lecture 4/data_wrangling_i/data/FAS_pups.csv")
+
+```
+
+## Loom at read_csv options
+Skip the header according to the formatting using 'skip = '
+
+```{r}
+litters_df = 
+  read_csv(
+    file = "data/FAS_litters.csv",
+    skip = 2
+  )
+
+```
+
+What about missing data
+发现 GDDWeight这一列的type显示的是chr，但实际上它是数字，是因为他有一个entry是'.',所有整列都归位chr
+
+```{r}
+litters_df = 
+  read_csv(
+    file = "data/FAS_litters.csv",
+    na = c("NA", "", ".")
+  )
+
+litters_df = janitor::clean_names((litters_df))
+
+```
+
+What if we code 'group' as a factor variable
+
+```{r}
+litters_df = 
+  read_csv(
+    file = "data/FAS_litters.csv",
+    na = c("NA", "", "."),
+    col_types = cols(
+      Group = col_factor()
+    )
+  )
 ```
 
