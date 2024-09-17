@@ -1,0 +1,34 @@
+---
+title: "Data Import"
+output: github_document
+---
+
+```{r setup, echo = FALSE, message = FALSE}
+library(tidyverse)
+library(janitor)
+```
+
+
+
+
+## Import the FAS Litters CSV
+
+```{r}
+litters_df = read.csv("data/FAS_litters.csv")
+
+litters_df = janitor::clean_names(litters_df) #这里可以不用load janitor packages, 这样就不用把整个packages都加载出来，只调用其中一个即可。并且好多packages里面有相同名字的function
+```
+
+## Look at the dataset
+```{r}
+litteres_df
+
+head(litters_df)
+taill(litters_df)
+```
+
+```{r eval = FALSE} 
+# eval = FALSE create a new window to present the dataset. Always using this command when viewing dataset
+view(litters_df)
+```
+
